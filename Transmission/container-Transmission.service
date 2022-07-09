@@ -1,0 +1,27 @@
+[Unit]
+Description=Podman Container: Transmission Torrent Daemon
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=%t/containers
+
+[Service]
+Environment=PODMAN_SYSTEMD_UNIT=%n
+Restart=on-failure
+TimeoutStopSec=70
+ExecStartPre=/bin/rm -f %t/%n.ctr-id
+ExecStart=/usr/bin/podman run --cidfile=%t/%n.ctr-id --cgroups=no-conmon --rm --sdnotify=conmon --replace -d \
+  --net slirp4netns:port_handler=slirp4netns \
+  --name transmission \
+  -v [INCOMPLETE]:/home/transmission/incomplete \
+  -v tmvol:/home/transmission/.config/transmission-daemon \
+  -v [WATCH]:/home/transmission/watch \
+  -v [COMPLETE]:/home/transmission/complete \
+  -p 51413:51413/tcp -p 51413:51413/udp -p 9091:9091/tcp \
+  transmission
+ExecStop=/usr/bin/podman stop --ignore --cidfile=%t/%n.ctr-id
+ExecStopPost=/usr/bin/podman rm -f --ignore --cidfile=%t/%n.ctr-id
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=default.target
