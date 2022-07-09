@@ -6,10 +6,7 @@ on:
       - 'main'
     paths:
       - 'Java/8/u312/*'
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  workflow_dispatch:
 
 jobs:
   build:
@@ -39,4 +36,4 @@ jobs:
           file: ./Java/8/u312/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/InaccurateTank/java:8u312
+          tags: ghcr.io/inaccuratetank/java:8u312
