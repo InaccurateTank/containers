@@ -11,7 +11,7 @@ ARG     JAVA_VERSION=jdk8u312-b07
 ARG     ESUM=18fd13e77621f712326bfcf79c3e3cc08c880e3e4b8f63a1e5da619f3054b063
 
 RUN     apt-get update && \
-          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata curl ca-certificates fontconfig locales lsof openssl git tar sqlite3 libfreetype6 iproute2 libstdc++6 tini && \
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata curl ca-certificates fontconfig locales lsof openssl git tar sqlite3 libfreetype6 iproute2 libstdc++6 && \
           echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
           locale-gen en_US.UTF-8 && \
           apt-get clean && \
@@ -32,5 +32,4 @@ ENV     USER=container HOME=/home/container
 WORKDIR /home/container
 
 COPY    ./../../entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/tini", "--"]
 CMD     [ "/bin/bash", "/entrypoint.sh" ]
