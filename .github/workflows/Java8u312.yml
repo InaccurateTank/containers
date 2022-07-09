@@ -5,7 +5,7 @@ on:
     branches:
       - 'main'
     paths:
-      - '/Java/8/u312/*'
+      - 'Java/8/u312/*'
 
 env:
   REGISTRY: ghcr.io
