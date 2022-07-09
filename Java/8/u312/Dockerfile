@@ -1,6 +1,6 @@
 FROM    docker.io/debian:bullseye-slim
 
-LABEL   author="InaccurateTank" maintainer="InaccurateTank"
+LABEL   author="InaccurateTan" maintainer="InaccurateTank"
 
 LABEL   org.opencontainers.image.source="https://github.com/InaccurateTank/containers/Java"
 LABEL   org.opencontainers.image.licenses=MIT
