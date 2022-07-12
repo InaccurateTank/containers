@@ -35,7 +35,5 @@ jobs:
           file: ./Java/11/Dockerfile
           platforms: linux/amd64
           push: true
-          build-args:
-            JAVA_VERSION: "jdk-11.0.13+8"
-            ESUM: "fb0a27e6e1f26a1ee79daa92e4cfe3ec0d676acfe114d99dd84b3414f056e8a0"
+          build-args: JAVA_VERSION=jdk-11.0.13+8 ESUM=fb0a27e6e1f26a1ee79daa92e4cfe3ec0d676acfe114d99dd84b3414f056e8a0
           tags: ghcr.io/inaccuratetank/java:11.0.13
