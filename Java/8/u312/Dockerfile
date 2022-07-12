@@ -1,7 +1,6 @@
 FROM    docker.io/debian:bullseye-slim
 
 LABEL   author="InaccurateTank" maintainer="InaccurateTank"
-
 LABEL   org.opencontainers.image.source="https://github.com/InaccurateTank/containers/Java"
 LABEL   org.opencontainers.image.licenses=MIT
 
@@ -26,6 +25,9 @@ RUN     useradd -d /home/container -m container && \
 
 ENV     JAVA_HOME=/opt/java/openjdk \
         PATH="/opt/java/openjdk/bin:$PATH"
+
+RUN     echo "Confirming Java Install" && \
+          java -version
 
 USER    container
 ENV     USER=container HOME=/home/container

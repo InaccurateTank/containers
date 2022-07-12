@@ -1,14 +1,13 @@
 FROM    docker.io/debian:bullseye-slim
 
 LABEL   author="InaccurateTank" maintainer="InaccurateTank"
-
 LABEL   org.opencontainers.image.source="https://github.com/InaccurateTank/containers/Java"
 LABEL   org.opencontainers.image.licenses=MIT
 
 ENV     LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
-ARG     JAVA_VERSION=jdk-11.0.13+8
-ARG     ESUM=fb0a27e6e1f26a1ee79daa92e4cfe3ec0d676acfe114d99dd84b3414f056e8a0
+ARG     JAVA_VERSION=jdk-11.0.15+10
+ARG     ESUM=22831fd097dfb39e844cb34f42064ff26a0ada9cd13621d7b8bca8e9b9d3a5ee
 
 RUN     apt-get update && \
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata curl ca-certificates fontconfig locales lsof openssl git tar sqlite3 libfreetype6 iproute2 libstdc++6 && \
@@ -27,9 +26,12 @@ RUN     useradd -d /home/container -m container && \
 ENV     JAVA_HOME=/opt/java/openjdk \
         PATH="/opt/java/openjdk/bin:$PATH"
 
+RUN     echo "Confirming Java Install" && \
+          java -version
+
 USER    container
 ENV     USER=container HOME=/home/container
 WORKDIR /home/container
 
-COPY    ./../../entrypoint.sh /entrypoint.sh
+COPY    ./../entrypoint.sh /entrypoint.sh
 CMD     [ "/bin/bash", "/entrypoint.sh" ]
